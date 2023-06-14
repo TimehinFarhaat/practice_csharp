@@ -3,7 +3,7 @@
     public static void Main(string[] args)
     {
         Console.WriteLine("Hey white");
-        Console.WriteLine("Hey givddvvv dvdi");
+        Console.WriteLine("Hey givddvvdffdvdi");
 
     }
 }
