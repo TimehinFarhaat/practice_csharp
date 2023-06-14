@@ -1,10 +1,15 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 As build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /app
-COPY . /app 
+COPY *.sln ./
+COPY OperatorOverloading/OperatorOverloading.csproj ./OperatorOverloading/
+COPY StringIt/StringIt.csproj ./StringIt/
 RUN dotnet restore
-RUN dotnet build -c Release -o /app/build
-RUN dotnet publish -c Release -o /app/publish
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+COPY . .
+RUN dotnet build --configuration Release --no-restore
+RUN dotnet publish --configuration Release --no-restore --output /app/publish
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "Udemy_practice.dll"]
+ENTRYPOINT ["dotnet", "OperatorOverloading.dll"]
+
 
